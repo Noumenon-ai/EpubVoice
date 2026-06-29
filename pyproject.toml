@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools==78.1.1", "wheel==0.46.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "epub-chapters"
+version = "0.1.0"
+description = "EPUB chapter parsing and editable chapter modeling for TTS preparation."
+requires-python = ">=3.11"
+dependencies = [
+  "beautifulsoup4==4.14.3",
+  "ebooklib==0.20",
+  "fastapi==0.138.1",
+  "lxml==6.0.2",
+  "python-dotenv==1.2.2",
+  "python-multipart==0.0.32",
+  "uvicorn==0.49.0"
+]
+
+[project.optional-dependencies]
+synth = [
+  "chatterbox-tts==0.1.2"
+]
+test = [
+  "httpx==0.28.1",
+  "pytest==9.1.1"
+]
+
+[tool.setuptools.packages.find]
+include = ["epub_chapters*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

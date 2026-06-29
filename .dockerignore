@@ -1,0 +1,44 @@
+# Keep the build context small and avoid leaking local state / secrets.
+.git
+.local-git
+.github
+
+# Secrets and local environment (never copy into an image).
+.env
+.env.*
+!.env.example
+secrets/
+*_credentials*
+*_tokens*
+*_keys*
+*.pem
+*.key
+*.token
+
+# Node / build outputs (the image rebuilds the frontend itself).
+node_modules
+dist
+coverage
+
+# Python caches and local runtime data.
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+build/
+*.egg-info/
+.local_api_data/
+.local_model_cache/
+
+# Editor / OS noise.
+.DS_Store
+.idea/
+.vscode/
+
+# Docs and checklists are not needed inside the runtime image.
+docs/
+*.md

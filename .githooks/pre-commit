@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+set -eu
+
+forbidden='(AKIA[0-9A-Z]{16}|-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----|xox[baprs]-[A-Za-z0-9-]+|sk-[A-Za-z0-9]{20,})'
+
+if git diff --cached --name-only -z | xargs -0 grep -EIn "$forbidden" >/tmp/pre-commit-secret-scan.txt 2>/dev/null; then
+  printf '%s\n' 'Potential secret found in staged changes:'
+  cat /tmp/pre-commit-secret-scan.txt
+  rm -f /tmp/pre-commit-secret-scan.txt
+  exit 1
+fi
+
+rm -f /tmp/pre-commit-secret-scan.txt
